@@ -8,7 +8,7 @@
 // it sits in cash, so a slow bleed costs it nothing.
 //
 //   Entry : close <= max(close[-120..-1]) * (1 - 2.50%), full size.
-//   Exit  : take profit at +2.50% over the entry fill price, or a 0.80%
+//   Exit  : take profit at +2.60% over the entry fill price, or a 0.75%
 //           trailing stop from the highest close since entry.
 //   Sizing: 100% of cash on every signal (one open position max, long only).
 //           A full-size round trip costs ~26 bps in fee + slippage +
@@ -28,9 +28,12 @@ const LOOKBACK = 120;
 // Entry: close this far (bps) below the lookback high.
 const DIP_BPS = 250;
 // Exit: take profit this far (bps) above the entry fill price.
-const TAKE_PROFIT_BPS = 250;
+// (Re-tuned 18 Nov: 250 -> 260 bps; dev PnL +$26.20 -> +$26.87 alone,
+// +$27.44 combined with the tighter trailing stop below.)
+const TAKE_PROFIT_BPS = 260;
 // Exit: trailing stop this far (bps) below the highest close since entry.
-const TRAIL_BPS = 80;
+// (Re-tuned 18 Nov: 80 -> 75 bps; dev PnL +$26.20 -> +$26.77 alone.)
+const TRAIL_BPS = 75;
 // Orders are filled at the next bar's open; reject a fill that moved this
 // far (bps) from the close we decided on, so we never chase a gap.
 const MAX_SLIP_BPS = 200;
